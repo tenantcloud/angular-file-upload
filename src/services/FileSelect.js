@@ -53,7 +53,7 @@ export default function __identity($compile, FileDirective) {
          * @returns {Boolean}
          */
         isEmptyAfterSelection() {
-            return !!this.element.attr('multiple');
+            return true; //!!this.element.attr('multiple');
         }
         /**
          * Event handler

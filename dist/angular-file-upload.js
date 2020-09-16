@@ -57,7 +57,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -121,17 +121,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    FileUploader.FileOver = FileOver;
 	}]);
 
-/***/ },
+/***/ }),
 /* 1 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
-	module.exports = {
-		"name": "angularFileUpload"
-	};
+	module.exports = {"name":"angularFileUpload"}
 
-/***/ },
+/***/ }),
 /* 2 */
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 	
@@ -154,9 +152,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    disableMultipart: false
 	};
 
-/***/ },
+/***/ }),
 /* 3 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -173,18 +171,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var _angular = angular;
-	var copy = _angular.copy;
-	var extend = _angular.extend;
-	var forEach = _angular.forEach;
-	var isObject = _angular.isObject;
-	var isNumber = _angular.isNumber;
-	var isDefined = _angular.isDefined;
-	var isArray = _angular.isArray;
-	var element = _angular.element;
+	var _angular = angular,
+	    copy = _angular.copy,
+	    extend = _angular.extend,
+	    forEach = _angular.forEach,
+	    isObject = _angular.isObject,
+	    isNumber = _angular.isNumber,
+	    isDefined = _angular.isDefined,
+	    isArray = _angular.isArray,
+	    element = _angular.element;
 	function __identity(fileUploaderOptions, $rootScope, $http, $window, $timeout, FileLikeObject, FileItem) {
-	    var File = $window.File;
-	    var FormData = $window.FormData;
+	    var File = $window.File,
+	        FormData = $window.FormData;
 	
 	    var FileUploader = function () {
 	        /**********************
@@ -195,7 +193,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	         * @param {Object} [options]
 	         * @constructor
 	         */
-	
 	        function FileUploader(options) {
 	            _classCallCheck(this, FileUploader);
 	
@@ -257,12 +254,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	        FileUploader.prototype.removeFromQueue = function removeFromQueue(value) {
-	            var index = this.getIndexOfItem(value);
-	            var item = this.queue[index];
-	            if (item.isUploading) item.cancel();
-	            this.queue.splice(index, 1);
-	            item._destroy();
-	            this.progress = this._getTotalProgress();
+	            if (this.queue.length) {
+	                var index = this.getIndexOfItem(value);
+	                var item = this.queue[index];
+	                if (item.isUploading) item.cancel();
+	                this.queue.splice(index, 1);
+	                item._destroy();
+	                this.progress = this._getTotalProgress();
+	            }
 	        };
 	        /**
 	         * Clears the queue
@@ -274,6 +273,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                this.queue[0].remove();
 	            }
 	            this.progress = 0;
+	        };
+	
+	        FileUploader.prototype.clearQueueAll = function clearQueueAll() {
+	            this.queue = [];
 	        };
 	        /**
 	         * Uploads a item from the queue
@@ -315,14 +318,12 @@ return /******/ (function(modules) { // webpackBootstrap
 	                // It will call this._onCancelItem() & this._onCompleteItem() asynchronously
 	                item[prop].abort();
 	            } else {
-	                (function () {
-	                    var dummy = [undefined, 0, {}];
-	                    var onNextTick = function onNextTick() {
-	                        _this2._onCancelItem.apply(_this2, [item].concat(dummy));
-	                        _this2._onCompleteItem.apply(_this2, [item].concat(dummy));
-	                    };
-	                    $timeout(onNextTick); // Trigger callbacks asynchronously (setImmediate emulation)
-	                })();
+	                var dummy = [undefined, 0, {}];
+	                var onNextTick = function onNextTick() {
+	                    _this2._onCancelItem.apply(_this2, [item].concat(dummy));
+	                    _this2._onCompleteItem.apply(_this2, [item].concat(dummy));
+	                };
+	                $timeout(onNextTick); // Trigger callbacks asynchronously (setImmediate emulation)
 	            }
 	        };
 	        /**
@@ -1033,9 +1034,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__identity.$inject = ['fileUploaderOptions', '$rootScope', '$http', '$window', '$timeout', 'FileLikeObject', 'FileItem'];
 
-/***/ },
+/***/ }),
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1052,10 +1053,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var _angular = angular;
-	var copy = _angular.copy;
-	var isElement = _angular.isElement;
-	var isString = _angular.isString;
+	var _angular = angular,
+	    copy = _angular.copy,
+	    isElement = _angular.isElement,
+	    isString = _angular.isString;
 	function __identity() {
 	
 	    return function () {
@@ -1064,7 +1065,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	         * @param {File|HTMLInputElement|Object} fileOrInput
 	         * @constructor
 	         */
-	
 	        function FileLikeObject(fileOrInput) {
 	            _classCallCheck(this, FileLikeObject);
 	
@@ -1105,9 +1105,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }();
 	}
 
-/***/ },
+/***/ }),
 /* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1124,11 +1124,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var _angular = angular;
-	var copy = _angular.copy;
-	var extend = _angular.extend;
-	var element = _angular.element;
-	var isElement = _angular.isElement;
+	var _angular = angular,
+	    copy = _angular.copy,
+	    extend = _angular.extend,
+	    element = _angular.element,
+	    isElement = _angular.isElement;
 	function __identity($compile, FileLikeObject) {
 	
 	    return function () {
@@ -1139,7 +1139,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	         * @param {Object} options
 	         * @constructor
 	         */
-	
 	        function FileItem(uploader, some, options) {
 	            _classCallCheck(this, FileItem);
 	
@@ -1399,9 +1398,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__identity.$inject = ['$compile', 'FileLikeObject'];
 
-/***/ },
+/***/ }),
 /* 6 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1418,8 +1417,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var _angular = angular;
-	var extend = _angular.extend;
+	var _angular = angular,
+	    extend = _angular.extend;
 	function __identity() {
 	    var FileDirective = function () {
 	        /**
@@ -1431,7 +1430,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	         * @param {String} options.prop
 	         * @constructor
 	         */
-	
 	        function FileDirective(options) {
 	            _classCallCheck(this, FileDirective);
 	
@@ -1499,9 +1497,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return FileDirective;
 	}
 
-/***/ },
+/***/ }),
 /* 7 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1522,8 +1520,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var _angular = angular;
-	var extend = _angular.extend;
+	var _angular = angular,
+	    extend = _angular.extend;
 	function __identity($compile, FileDirective) {
 	
 	    return function (_FileDirective) {
@@ -1534,7 +1532,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	         * @param {Object} options
 	         * @constructor
 	         */
-	
 	        function FileSelect(options) {
 	            _classCallCheck(this, FileSelect);
 	
@@ -1577,7 +1574,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	
 	        FileSelect.prototype.isEmptyAfterSelection = function isEmptyAfterSelection() {
-	            return !!this.element.attr('multiple');
+	            return true; //!!this.element.attr('multiple');
 	        };
 	        /**
 	         * Event handler
@@ -1603,9 +1600,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__identity.$inject = ['$compile', 'FileDirective'];
 
-/***/ },
+/***/ }),
 /* 8 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1626,9 +1623,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var _angular = angular;
-	var extend = _angular.extend;
-	var forEach = _angular.forEach;
+	var _angular = angular,
+	    extend = _angular.extend,
+	    forEach = _angular.forEach;
 	function __identity(FileDirective) {
 	
 	    return function (_FileDirective) {
@@ -1639,7 +1636,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	         * @param {Object} options
 	         * @constructor
 	         */
-	
 	        function FileDrop(options) {
 	            _classCallCheck(this, FileDrop);
 	
@@ -1763,9 +1759,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__identity.$inject = ['FileDirective'];
 
-/***/ },
+/***/ }),
 /* 9 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1786,8 +1782,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var _angular = angular;
-	var extend = _angular.extend;
+	var _angular = angular,
+	    extend = _angular.extend;
 	function __identity(FileDirective) {
 	
 	    return function (_FileDirective) {
@@ -1798,7 +1794,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	         * @param {Object} options
 	         * @constructor
 	         */
-	
 	        function FileOver(options) {
 	            _classCallCheck(this, FileOver);
 	
@@ -1847,9 +1842,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__identity.$inject = ['FileDirective'];
 
-/***/ },
+/***/ }),
 /* 10 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1890,9 +1885,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__identity.$inject = ['$parse', 'FileUploader', 'FileSelect'];
 
-/***/ },
+/***/ }),
 /* 11 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1934,9 +1929,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__identity.$inject = ['$parse', 'FileUploader', 'FileDrop'];
 
-/***/ },
+/***/ }),
 /* 12 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1975,7 +1970,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	__identity.$inject = ['FileUploader', 'FileOver'];
 
-/***/ }
+/***/ })
 /******/ ])
 });
 ;

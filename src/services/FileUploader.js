@@ -87,12 +87,14 @@ export default function __identity(fileUploaderOptions, $rootScope, $http, $wind
          * @param {FileItem|Number} value
          */
         removeFromQueue(value) {
-            var index = this.getIndexOfItem(value);
-            var item = this.queue[index];
-            if(item.isUploading) item.cancel();
-            this.queue.splice(index, 1);
-            item._destroy();
-            this.progress = this._getTotalProgress();
+            if (this.queue.length) {
+                var index = this.getIndexOfItem(value);
+                var item = this.queue[index];
+                if(item.isUploading) item.cancel();
+                this.queue.splice(index, 1);
+                item._destroy();
+                this.progress = this._getTotalProgress();
+            }
         }
         /**
          * Clears the queue
@@ -102,6 +104,9 @@ export default function __identity(fileUploaderOptions, $rootScope, $http, $wind
                 this.queue[0].remove();
             }
             this.progress = 0;
+        }
+        clearQueueAll() {
+            this.queue = [];
         }
         /**
          * Uploads a item from the queue
